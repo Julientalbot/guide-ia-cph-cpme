@@ -1,0 +1,1572 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guide IA — Conseillers Prud'homaux CPME</title>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #1a1a2e;
+  --ink-light: #3d3d5c;
+  --ink-muted: #6b6b8a;
+  --bg: #faf9f7;
+  --bg-warm: #f5f0eb;
+  --bg-card: #ffffff;
+  --accent: #c45d3e;
+  --accent-light: #e8d5ce;
+  --accent-dark: #9e3a1f;
+  --blue: #2d5f8a;
+  --blue-light: #d4e4f0;
+  --green: #3a7d5c;
+  --green-light: #d4eddf;
+  --amber: #b8860b;
+  --amber-light: #fdf3d7;
+  --red: #a63d40;
+  --red-light: #f5d5d6;
+  --border: #e0ddd8;
+  --shadow: 0 2px 12px rgba(26,26,46,0.06);
+  --shadow-hover: 0 4px 20px rgba(26,26,46,0.1);
+  --radius: 10px;
+  --radius-lg: 16px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.7;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ─── HEADER ─── */
+.hero {
+  background: linear-gradient(135deg, #1a1a2e 0%, #2d3561 60%, #3a4a7a 100%);
+  color: white;
+  padding: 80px 40px 60px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(196,93,62,0.15) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero-content {
+  max-width: 900px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-badge {
+  display: inline-block;
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.2);
+  padding: 6px 16px;
+  border-radius: 100px;
+  font-size: 13px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+  font-weight: 500;
+}
+
+.hero h1 {
+  font-family: 'Source Serif 4', serif;
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 16px;
+}
+
+.hero h1 em {
+  font-style: italic;
+  color: var(--accent);
+  color: #e8a88c;
+}
+
+.hero-subtitle {
+  font-size: 1.1rem;
+  opacity: 0.8;
+  max-width: 640px;
+  line-height: 1.7;
+}
+
+.hero-meta {
+  margin-top: 32px;
+  display: flex;
+  gap: 32px;
+  font-size: 14px;
+  opacity: 0.65;
+}
+
+/* ─── NAV ─── */
+.sticky-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(250,249,247,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 40px;
+}
+
+.nav-inner {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  gap: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.nav-inner::-webkit-scrollbar { display: none; }
+
+.nav-link {
+  display: block;
+  padding: 14px 18px;
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--ink-muted);
+  text-decoration: none;
+  white-space: nowrap;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s;
+}
+
+.nav-link:hover, .nav-link.active {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+/* ─── MAIN ─── */
+.main {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 40px 80px;
+}
+
+.section {
+  padding-top: 56px;
+}
+
+.section-number {
+  font-family: 'Source Serif 4', serif;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 8px;
+}
+
+.section h2 {
+  font-family: 'Source Serif 4', serif;
+  font-size: 1.9rem;
+  font-weight: 700;
+  line-height: 1.25;
+  margin-bottom: 24px;
+  color: var(--ink);
+}
+
+.section h3 {
+  font-family: 'Source Serif 4', serif;
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin: 32px 0 12px;
+  color: var(--ink);
+}
+
+p { margin-bottom: 16px; }
+
+/* ─── CARDS ─── */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  margin: 24px 0;
+}
+
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  box-shadow: var(--shadow);
+  transition: box-shadow 0.25s, transform 0.25s;
+}
+
+.card:hover {
+  box-shadow: var(--shadow-hover);
+  transform: translateY(-2px);
+}
+
+.card-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  margin-bottom: 16px;
+}
+
+.card h4 {
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.card p {
+  font-size: 14.5px;
+  color: var(--ink-light);
+  line-height: 1.6;
+  margin-bottom: 0;
+}
+
+.card-tag {
+  display: inline-block;
+  font-size: 11.5px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 100px;
+  margin-top: 12px;
+}
+
+/* ─── COMPARISON TABLE ─── */
+.comparison-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin: 24px 0;
+  font-size: 14.5px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--bg-card);
+}
+
+.comparison-table thead {
+  background: var(--bg-warm);
+}
+
+.comparison-table th {
+  padding: 14px 18px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--ink-muted);
+  border-bottom: 1px solid var(--border);
+}
+
+.comparison-table td {
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+
+.comparison-table tr:last-child td { border-bottom: none; }
+
+.comparison-table td:first-child {
+  font-weight: 600;
+  color: var(--ink);
+}
+
+/* ─── ALERT / CALLOUT ─── */
+.callout {
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  margin: 24px 0;
+  font-size: 15px;
+  line-height: 1.65;
+  border-left: 4px solid;
+}
+
+.callout p:last-child { margin-bottom: 0; }
+
+.callout-warn {
+  background: var(--amber-light);
+  border-color: var(--amber);
+}
+
+.callout-danger {
+  background: var(--red-light);
+  border-color: var(--red);
+}
+
+.callout-tip {
+  background: var(--green-light);
+  border-color: var(--green);
+}
+
+.callout-info {
+  background: var(--blue-light);
+  border-color: var(--blue);
+}
+
+.callout-label {
+  font-weight: 700;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 6px;
+}
+
+/* ─── PROMPT BLOCKS ─── */
+.prompt-block {
+  background: #1e1e2e;
+  color: #cdd6f4;
+  border-radius: var(--radius-lg);
+  margin: 20px 0;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+.prompt-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+  background: rgba(255,255,255,0.05);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.prompt-label {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #89b4fa;
+}
+
+.prompt-copy {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.12);
+  color: #bac2de;
+  font-size: 12px;
+  padding: 5px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.prompt-copy:hover {
+  background: rgba(255,255,255,0.15);
+  color: white;
+}
+
+.prompt-body {
+  padding: 20px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13.5px;
+  line-height: 1.7;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.prompt-body .placeholder {
+  color: #fab387;
+  font-style: italic;
+}
+
+/* ─── ACCORDION ─── */
+.accordion {
+  margin: 20px 0;
+}
+
+.accordion-item {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 8px;
+  background: var(--bg-card);
+  overflow: hidden;
+}
+
+.accordion-trigger {
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 18px 22px;
+  text-align: left;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15.5px;
+  font-weight: 600;
+  color: var(--ink);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: background 0.15s;
+}
+
+.accordion-trigger:hover {
+  background: var(--bg-warm);
+}
+
+.accordion-arrow {
+  font-size: 18px;
+  transition: transform 0.3s;
+  color: var(--ink-muted);
+}
+
+.accordion-item.open .accordion-arrow {
+  transform: rotate(180deg);
+}
+
+.accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease;
+}
+
+.accordion-inner {
+  padding: 0 22px 22px;
+  font-size: 15px;
+  color: var(--ink-light);
+}
+
+.accordion-inner p:last-child { margin-bottom: 0; }
+
+/* ─── CHECKLIST ─── */
+.checklist {
+  list-style: none;
+  margin: 16px 0;
+}
+
+.checklist li {
+  position: relative;
+  padding: 8px 0 8px 32px;
+  font-size: 15px;
+}
+
+.checklist li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  top: 8px;
+  width: 22px;
+  height: 22px;
+  background: var(--green-light);
+  color: var(--green);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/* ─── STEP INDICATOR ─── */
+.steps {
+  margin: 24px 0;
+  counter-reset: step;
+}
+
+.step {
+  position: relative;
+  padding: 0 0 32px 56px;
+  counter-increment: step;
+}
+
+.step:last-child { padding-bottom: 0; }
+
+.step::before {
+  content: counter(step);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 36px;
+  height: 36px;
+  background: var(--accent);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.step::after {
+  content: '';
+  position: absolute;
+  left: 17px;
+  top: 40px;
+  width: 2px;
+  height: calc(100% - 44px);
+  background: var(--accent-light);
+}
+
+.step:last-child::after { display: none; }
+
+.step h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.step p {
+  font-size: 14.5px;
+  color: var(--ink-light);
+  margin-bottom: 0;
+}
+
+/* ─── ANALOGY BOX ─── */
+.analogy {
+  background: linear-gradient(135deg, var(--bg-warm), #f0e8df);
+  border-radius: var(--radius-lg);
+  padding: 28px 32px;
+  margin: 28px 0;
+  border: 1px solid #e4d8cc;
+  position: relative;
+}
+
+.analogy::before {
+  content: '💡';
+  position: absolute;
+  top: -12px;
+  left: 24px;
+  background: var(--bg);
+  padding: 0 8px;
+  font-size: 20px;
+}
+
+.analogy-title {
+  font-family: 'Source Serif 4', serif;
+  font-weight: 600;
+  font-size: 1.05rem;
+  margin-bottom: 8px;
+}
+
+.analogy p {
+  font-size: 15px;
+  color: var(--ink-light);
+  margin-bottom: 0;
+}
+
+/* ─── FOOTER ─── */
+footer {
+  background: var(--ink);
+  color: rgba(255,255,255,0.6);
+  padding: 40px;
+  text-align: center;
+  font-size: 14px;
+}
+
+footer strong {
+  color: rgba(255,255,255,0.85);
+}
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 768px) {
+  .hero { padding: 48px 24px 40px; }
+  .main { padding: 0 20px 60px; }
+  .sticky-nav { padding: 0 16px; }
+  .nav-link { padding: 12px 12px; font-size: 12.5px; }
+  .hero-meta { flex-direction: column; gap: 8px; }
+  .card-grid { grid-template-columns: 1fr; }
+  .comparison-table { font-size: 13px; }
+  .comparison-table th, .comparison-table td { padding: 10px 12px; }
+}
+
+@media print {
+  .sticky-nav { display: none; }
+  .hero { padding: 40px 20px; }
+  .prompt-copy { display: none; }
+}
+
+/* ─── DIAGRAM: PIPELINE ─── */
+.pipeline {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  margin: 32px 0;
+  overflow-x: auto;
+  padding-bottom: 8px;
+}
+
+.pipeline-stage {
+  flex: 1;
+  min-width: 120px;
+  text-align: center;
+  position: relative;
+}
+
+.pipeline-box {
+  border-radius: var(--radius);
+  padding: 16px 12px;
+  margin: 0 4px;
+  min-height: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: transform 0.2s;
+}
+
+.pipeline-box:hover {
+  transform: translateY(-3px);
+}
+
+.pipeline-icon {
+  font-size: 28px;
+  line-height: 1;
+}
+
+.pipeline-title {
+  font-size: 12.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  line-height: 1.3;
+}
+
+.pipeline-desc {
+  font-size: 11.5px;
+  line-height: 1.4;
+  opacity: 0.8;
+}
+
+.pipeline-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  color: var(--ink-muted);
+  min-width: 28px;
+  flex-shrink: 0;
+}
+
+/* ─── DIAGRAM: CONTEXT WINDOW ─── */
+.ctx-window {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  margin: 20px 0;
+}
+
+.ctx-bar-container {
+  background: #eee9e2;
+  border-radius: 8px;
+  height: 44px;
+  position: relative;
+  overflow: hidden;
+  margin: 12px 0;
+}
+
+.ctx-bar-fill {
+  height: 100%;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  padding-left: 14px;
+  font-size: 12px;
+  font-weight: 600;
+  color: white;
+  transition: width 0.6s ease;
+}
+
+.ctx-bar-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12.5px;
+  color: var(--ink-muted);
+  margin-bottom: 4px;
+}
+
+.ctx-legend {
+  display: flex;
+  gap: 20px;
+  margin-top: 14px;
+  flex-wrap: wrap;
+}
+
+.ctx-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12.5px;
+  color: var(--ink-light);
+}
+
+.ctx-legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+/* ─── DIAGRAM: PROMPT ANATOMY ─── */
+.prompt-anatomy {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin: 24px 0;
+}
+
+.prompt-part {
+  border-radius: var(--radius);
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.prompt-part::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+}
+
+.prompt-part-number {
+  font-size: 32px;
+  font-weight: 800;
+  opacity: 0.12;
+  position: absolute;
+  top: 8px;
+  right: 14px;
+  font-family: 'Source Serif 4', serif;
+}
+
+.prompt-part h5 {
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 6px;
+}
+
+.prompt-part p {
+  font-size: 13.5px;
+  line-height: 1.5;
+  margin-bottom: 4px;
+}
+
+.prompt-part .example {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  opacity: 0.7;
+  font-style: italic;
+}
+
+/* ─── DIAGRAM: WORKFLOW ─── */
+.workflow {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin: 28px 0;
+  position: relative;
+}
+
+.workflow::before {
+  content: '';
+  position: absolute;
+  left: 24px;
+  top: 30px;
+  bottom: 30px;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--green), var(--blue), var(--accent));
+  opacity: 0.3;
+}
+
+.workflow-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 10px 0;
+  position: relative;
+}
+
+.workflow-dot {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  flex-shrink: 0;
+  z-index: 1;
+}
+
+.workflow-text {
+  flex: 1;
+  padding-top: 10px;
+}
+
+.workflow-text h5 {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 3px;
+}
+
+.workflow-text p {
+  font-size: 13.5px;
+  color: var(--ink-muted);
+  margin-bottom: 0;
+}
+
+.workflow-connector {
+  display: flex;
+  align-items: center;
+  padding-left: 60px;
+  height: 24px;
+  color: var(--ink-muted);
+  font-size: 16px;
+}
+
+@media (max-width: 768px) {
+  .pipeline { flex-direction: column; align-items: center; }
+  .pipeline-arrow { transform: rotate(90deg); min-height: 28px; min-width: auto; }
+  .prompt-anatomy { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════ HERO ═══════════════════════════════════════════ -->
+<header class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">Formation CPME × Ergonomia</div>
+    <h1>L'intelligence artificielle<br>au service du <em>Conseil de Prud'hommes</em></h1>
+    <p class="hero-subtitle">Guide pratique et opérationnel à destination des conseillers prud'homaux. Comprendre les fondamentaux, maîtriser les outils, et exploiter l'IA pour gagner en efficacité au quotidien.</p>
+    <div class="hero-meta">
+      <span>26 mars 2026 — La Réunion</span>
+      <span>Formateur : Julien Talbot, Ergonomia</span>
+    </div>
+  </div>
+</header>
+
+<!-- ═══════════════════════════════════════════ NAV ═══════════════════════════════════════════ -->
+<nav class="sticky-nav">
+  <div class="nav-inner">
+    <a href="#comprendre" class="nav-link">Comprendre</a>
+    <a href="#limites" class="nav-link">Limites</a>
+    <a href="#outils" class="nav-link">Outils</a>
+    <a href="#cph" class="nav-link">Usage CPH</a>
+    <a href="#parametrer" class="nav-link">Paramétrer</a>
+    <a href="#prompts" class="nav-link">Prompts</a>
+    <a href="#securite" class="nav-link">Sécurité</a>
+    <a href="#aller-plus-loin" class="nav-link">Aller plus loin</a>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════════════════ MAIN ═══════════════════════════════════════════ -->
+<div class="main">
+
+<!-- ─── SECTION 1 : COMPRENDRE ─── -->
+<section id="comprendre" class="section">
+  <div class="section-number">Partie 1</div>
+  <h2>Comprendre l'IA en 5 minutes</h2>
+
+  <p>Les outils changent vite. ChatGPT domine aujourd'hui, Claude monte en puissance, un autre surgira demain. Ce qui ne change pas, c'est le fonctionnement sous-jacent. Comprendre ce mécanisme, c'est acquérir une compétence durable — indépendante de l'outil du moment.</p>
+
+  <h3>Avant l'IA : les technologies déterministes</h3>
+  <p>Un logiciel classique fonctionne selon des règles codées en dur par un développeur. Prenez une souris numérique dans un labyrinthe : le programmeur écrit «&nbsp;si tu rencontres un mur, va à droite&nbsp;». Ça marche dans ce labyrinthe précis. Changez la forme du labyrinthe, la souris est perdue. Le comportement est figé, pas généralisable.</p>
+
+  <h3>L'IA : apprendre par l'expérience</h3>
+  <p>Avec l'intelligence artificielle, on ne code plus le comportement. On donne à la souris la capacité d'avancer et de détecter son environnement, puis on lui fait résoudre un milliard de labyrinthes différents. Les comportements efficaces sont renforcés, les échecs affaiblis. Au bout du processus, la souris a acquis le <em>concept</em> de résolution de labyrinthe — elle s'adapte à n'importe quelle configuration.</p>
+
+  <h3>Les grands modèles de langage (LLM)</h3>
+  <p>ChatGPT, Claude, Gemini, Mistral : ces outils reposent sur la même logique appliquée au texte. On a fait «&nbsp;manger&nbsp;» à des modèles la quasi-totalité d'Internet — blogs, articles, transcriptions vidéo, ouvrages numérisés. Le modèle a appris à <strong>prédire le mot suivant</strong> de la façon la plus cohérente possible par rapport à tous les mots précédents.</p>
+
+  <h3>Comment naît un modèle d'IA</h3>
+
+  <div class="pipeline">
+    <div class="pipeline-stage">
+      <div class="pipeline-box" style="background: #dbeafe; color: #1e40af;">
+        <div class="pipeline-icon">🌐</div>
+        <div class="pipeline-title">Données massives</div>
+        <div class="pipeline-desc">Internet entier, livres, articles, forums, code...</div>
+      </div>
+    </div>
+    <div class="pipeline-arrow">→</div>
+    <div class="pipeline-stage">
+      <div class="pipeline-box" style="background: #ede9fe; color: #5b21b6;">
+        <div class="pipeline-icon">🧠</div>
+        <div class="pipeline-title">Entraînement</div>
+        <div class="pipeline-desc">Le modèle apprend à prédire le mot suivant</div>
+      </div>
+    </div>
+    <div class="pipeline-arrow">→</div>
+    <div class="pipeline-stage">
+      <div class="pipeline-box" style="background: #fce7f3; color: #9d174d;">
+        <div class="pipeline-icon">🔒</div>
+        <div class="pipeline-title">«&nbsp;Lobotomisation&nbsp;»</div>
+        <div class="pipeline-desc">Retrait des contenus dangereux, ajout de garde-fous</div>
+      </div>
+    </div>
+    <div class="pipeline-arrow">→</div>
+    <div class="pipeline-stage">
+      <div class="pipeline-box" style="background: #fef3c7; color: #92400e;">
+        <div class="pipeline-icon">⚙️</div>
+        <div class="pipeline-title">System prompt</div>
+        <div class="pipeline-desc">Personnalité, règles, ton — invisible pour l'utilisateur</div>
+      </div>
+    </div>
+    <div class="pipeline-arrow">→</div>
+    <div class="pipeline-stage">
+      <div class="pipeline-box" style="background: #d1fae5; color: #065f46;">
+        <div class="pipeline-icon">💬</div>
+        <div class="pipeline-title">Votre conversation</div>
+        <div class="pipeline-desc">Votre prompt + les documents que vous chargez</div>
+      </div>
+    </div>
+  </div>
+
+  <p>À chaque étape, des choix sont faits qui influencent la sortie finale. Les données d'entraînement contiennent les biais du web. La «&nbsp;lobotomisation&nbsp;» reflète les valeurs de l'entreprise. Le system prompt cadre le comportement. Et votre prompt oriente la réponse. Comprendre cette chaîne, c'est comprendre pourquoi l'IA répond comme elle répond.</p>
+
+  <div class="analogy">
+    <div class="analogy-title">L'image du stagiaire</div>
+    <p>L'IA, c'est un stagiaire au QI exceptionnel, mais avec zéro initiative et une mémoire limitée. Si vous débarquez dans son bureau en lâchant «&nbsp;rédige le délibéré&nbsp;», il va produire quelque chose — parce qu'il ne sait pas dire qu'il ne sait pas. Le résultat sera cohérent, bien écrit, et potentiellement faux. Tout dépend de la qualité de la consigne que vous lui donnez et du contexte que vous lui fournissez.</p>
+  </div>
+
+  <div class="callout callout-warn">
+    <div class="callout-label">⚠ Distinction fondamentale</div>
+    <p>Ces modèles sont des <strong>générateurs de cohérence, pas de vérité</strong>. Leur objectif est de produire du texte qui «&nbsp;sonne juste&nbsp;» — pas du texte qui <em>est</em> juste. Un texte cohérent et bien écrit peut être entièrement faux. Garder cette distinction en tête change radicalement la façon dont on utilise ces outils.</p>
+  </div>
+</section>
+
+<!-- ─── SECTION 2 : LIMITES ─── -->
+<section id="limites" class="section">
+  <div class="section-number">Partie 2</div>
+  <h2>Ce que l'IA ne sait pas faire</h2>
+
+  <p>Avant de voir ce que l'IA rend possible, il faut avoir une conscience claire de ses limitations. C'est la condition pour l'utiliser correctement — surtout dans un contexte juridique où l'erreur a des conséquences.</p>
+
+  <div class="accordion">
+    <div class="accordion-item">
+      <button class="accordion-trigger">
+        Les hallucinations
+        <span class="accordion-arrow">▾</span>
+      </button>
+      <div class="accordion-content">
+        <div class="accordion-inner">
+          <p>L'IA peut inventer des jurisprudences, citer des articles de loi qui n'existent pas, ou attribuer une décision à la mauvaise juridiction. Elle le fait avec une assurance totale, dans un texte parfaitement rédigé. C'est le risque numéro un. Plus le modèle est puissant (et cher), moins il hallucine — mais aucun n'en est exempt.</p>
+          <p>Au CPH, le danger est concret : un argument juridique fabriqué par l'IA, non vérifié, qui se retrouve dans un délibéré. En appel, ce genre d'erreur fait tomber la décision.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <button class="accordion-trigger">
+        Le mensonge par omission
+        <span class="accordion-arrow">▾</span>
+      </button>
+      <div class="accordion-content">
+        <div class="accordion-inner">
+          <p>Là où l'hallucination est vérifiable (un article de loi existe ou non), l'omission est bien plus pernicieuse. Demandez une frise chronologique du droit du travail : l'IA en produira une cohérente et documentée. Mais comment vérifier qu'elle n'a pas omis une étape importante ? C'est un exercice extrêmement difficile, et c'est précisément là que les biais idéologiques des modèles s'expriment silencieusement.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <button class="accordion-trigger">
+        La fenêtre de contexte
+        <span class="accordion-arrow">▾</span>
+      </button>
+      <div class="accordion-content">
+        <div class="accordion-inner">
+          <p>Chaque modèle a une limite de données qu'il peut traiter simultanément. C'est sa «&nbsp;fenêtre de contexte&nbsp;». Quand vous chargez un PDF de 200 pages puis un autre de 150, chaque question que vous posez oblige l'IA à «&nbsp;remouliner&nbsp;» la totalité du contexte. Arrivé à la limite, le modèle compresse silencieusement les échanges précédents et travaille à partir d'un résumé appauvri.</p>
+          <p>Conséquence pratique : vos conversations deviennent incohérentes sans prévenir. Si l'IA donne des réponses bizarres après une longue conversation, c'est souvent la fenêtre de contexte qui est saturée — pas un bug.</p>
+
+          <div class="ctx-window">
+            <div class="ctx-bar-label"><span>Version gratuite — fenêtre réduite</span><span>Limite atteinte</span></div>
+            <div class="ctx-bar-container">
+              <div class="ctx-bar-fill" style="width: 35%; background: linear-gradient(90deg, #2d5f8a, #4a90c4);">Instructions</div>
+              <div class="ctx-bar-fill" style="width: 40%; background: linear-gradient(90deg, #b8860b, #d4a829); position: absolute; left: 35%; top: 0;">PDF 12 pages</div>
+              <div class="ctx-bar-fill" style="width: 15%; background: linear-gradient(90deg, #3a7d5c, #5aad7c); position: absolute; left: 75%; top: 0;">Échanges</div>
+              <div style="position: absolute; right: 0; top: 0; height: 100%; width: 10%; background: repeating-linear-gradient(45deg, #a63d40, #a63d40 4px, #c45050 4px, #c45050 8px); border-radius: 0 8px 8px 0; display: flex; align-items: center; justify-content: center; color: white; font-size: 16px; font-weight: 700;">⚠</div>
+            </div>
+
+            <div class="ctx-bar-label" style="margin-top: 16px;"><span>Version payante — fenêtre large</span><span>Marge disponible</span></div>
+            <div class="ctx-bar-container">
+              <div class="ctx-bar-fill" style="width: 12%; background: linear-gradient(90deg, #2d5f8a, #4a90c4);">Instr.</div>
+              <div class="ctx-bar-fill" style="width: 25%; background: linear-gradient(90deg, #b8860b, #d4a829); position: absolute; left: 12%; top: 0;">Code travail PDF</div>
+              <div class="ctx-bar-fill" style="width: 12%; background: linear-gradient(90deg, #7c5cbf, #9a7ce0); position: absolute; left: 37%; top: 0;">Conv. coll.</div>
+              <div class="ctx-bar-fill" style="width: 18%; background: linear-gradient(90deg, #3a7d5c, #5aad7c); position: absolute; left: 49%; top: 0;">Échanges</div>
+            </div>
+
+            <div class="ctx-legend">
+              <div class="ctx-legend-item"><div class="ctx-legend-dot" style="background: #2d5f8a;"></div>Instructions / System prompt</div>
+              <div class="ctx-legend-item"><div class="ctx-legend-dot" style="background: #b8860b;"></div>Documents chargés</div>
+              <div class="ctx-legend-item"><div class="ctx-legend-dot" style="background: #3a7d5c;"></div>Vos échanges</div>
+              <div class="ctx-legend-item"><div class="ctx-legend-dot" style="background: #a63d40;"></div>Saturation</div>
+            </div>
+          </div>
+
+          <p><strong>En version gratuite</strong>, un PDF de 12 pages peut suffire à atteindre cette limite. Les versions payantes offrent des fenêtres bien plus larges.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <button class="accordion-trigger">
+        Les biais idéologiques
+        <span class="accordion-arrow">▾</span>
+      </button>
+      <div class="accordion-content">
+        <div class="accordion-inner">
+          <p>Ces modèles sont développés par des entreprises privées avec des actionnaires, une culture et une vision du monde. Lors de la phase de «&nbsp;lobotomisation&nbsp;» (suppression des contenus dangereux), des choix sont faits qui ne sont jamais neutres. Le corpus de données d'entraînement lui-même reflète les biais de ce qui est publié en ligne.</p>
+          <p>Concrètement : posez la même question politique ou sociétale à quatre IA différentes, vous obtiendrez des réponses différentes. Pour le CPH, si la littérature d'entraînement est déséquilibrée — par exemple avec une surreprésentation de textes favorables aux salariés ou aux employeurs — les analyses produites s'en ressentiront.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── SECTION 3 : OUTILS ─── -->
+<section id="outils" class="section">
+  <div class="section-number">Partie 3</div>
+  <h2>Les outils disponibles</h2>
+
+  <p>Le marché évolue rapidement, mais le paysage actuel s'organise autour de quelques acteurs majeurs. Voici ce qu'il faut retenir pour choisir.</p>
+
+  <table class="comparison-table">
+    <thead>
+      <tr>
+        <th>Outil</th>
+        <th>Éditeur</th>
+        <th>Point fort</th>
+        <th>Limite principale</th>
+        <th>Prix</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>ChatGPT</td>
+        <td>OpenAI (USA)</td>
+        <td>Le plus polyvalent : accès Internet, images, connecteurs (mail, fichiers)</td>
+        <td>En version gratuite, modèle très limité ; le modèle «&nbsp;Thinking&nbsp;» n'est accessible qu'en payant</td>
+        <td>Gratuit / 20€/mois</td>
+      </tr>
+      <tr>
+        <td>Claude</td>
+        <td>Anthropic (USA)</td>
+        <td>Qualité rédactionnelle supérieure, idéal pour la formalisation de jugements et délibérés</td>
+        <td>Fenêtre de contexte plus limitée en gratuit ; quota journalier même en payant</td>
+        <td>Gratuit / 20€/mois / 200$/mois (Max)</td>
+      </tr>
+      <tr>
+        <td>Gemini</td>
+        <td>Google (USA)</td>
+        <td>Intégration avec l'écosystème Google (Drive, Gmail, etc.)</td>
+        <td>Performance variable selon les sujets</td>
+        <td>Gratuit / 20€/mois</td>
+      </tr>
+      <tr>
+        <td>Mistral</td>
+        <td>Mistral AI (France)</td>
+        <td>Français, gratuit, bonne performance générale</td>
+        <td>Écosystème moins développé que les concurrents américains</td>
+        <td>Gratuit / offres pro</td>
+      </tr>
+      <tr>
+        <td>Copilot</td>
+        <td>Microsoft (USA)</td>
+        <td>Intégré à Windows et Office — utilise ChatGPT en sous-couche</td>
+        <td>En version gratuite, modèle très basique qui hallucine davantage</td>
+        <td>Inclus avec Windows / Microsoft 365</td>
+      </tr>
+      <tr>
+        <td>Perplexity</td>
+        <td>Perplexity AI (USA)</td>
+        <td>Spécialisé recherche : cite ses sources avec des liens</td>
+        <td>Moins adapté à la rédaction longue</td>
+        <td>Gratuit / 20$/mois</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout callout-tip">
+    <div class="callout-label">💡 Retour d'expérience de la formation</div>
+    <p>Parmi les conseillers qui utilisaient déjà l'IA, Claude s'est distingué pour la qualité de rédaction des délibérés et la formalisation juridique. ChatGPT reste le plus polyvalent pour la recherche et l'analyse documentaire, surtout avec un abonnement payant qui donne accès aux modèles performants. L'idéal est de ne pas se limiter à un seul outil et de croiser les résultats sur les sujets sensibles.</p>
+  </div>
+
+  <h3>Gratuit vs. payant : la différence est réelle</h3>
+  <p>Les versions gratuites utilisent les modèles les moins performants — ceux qui hallucinent le plus. Avec un abonnement à 20€/mois, on accède aux modèles de dernière génération, à des fenêtres de contexte plus larges, et à des fonctionnalités avancées (accès Internet, analyse de documents, modes de réflexion étendue). Dans un contexte juridique, où la fiabilité compte, l'investissement se justifie.</p>
+</section>
+
+<!-- ─── SECTION 4 : USAGE CPH ─── -->
+<section id="cph" class="section">
+  <div class="section-number">Partie 4</div>
+  <h2>L'IA au service du CPH</h2>
+
+  <p>Voici les cas d'usage concrets qui se sont dégagés de la formation, testés et approuvés par des conseillers prud'homaux en exercice.</p>
+
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-icon" style="background: var(--blue-light); color: var(--blue);">📝</div>
+      <h4>Rédaction de délibérés</h4>
+      <p>Structurer et formaliser le texte des jugements. L'IA produit un premier jet cohérent et bien rédigé que le conseiller affine et vérifie. Gain de temps considérable sur la mise en forme.</p>
+      <span class="card-tag" style="background: var(--green-light); color: var(--green);">Gain de temps majeur</span>
+    </div>
+
+    <div class="card">
+      <div class="card-icon" style="background: var(--accent-light); color: var(--accent);">⚖️</div>
+      <h4>Recherche de jurisprudence</h4>
+      <p>Interroger l'IA sur les décisions de la Cour de cassation ou des cours d'appel pertinentes pour un dossier. Attention : toujours vérifier que les arrêts cités existent réellement.</p>
+      <span class="card-tag" style="background: var(--amber-light); color: var(--amber);">Vérification obligatoire</span>
+    </div>
+
+    <div class="card">
+      <div class="card-icon" style="background: var(--green-light); color: var(--green);">🔍</div>
+      <h4>Analyse de conclusions</h4>
+      <p>Soumettre les conclusions des parties pour en extraire les arguments clés, identifier les contradictions, et préparer les questions pertinentes pour l'audience.</p>
+      <span class="card-tag" style="background: var(--green-light); color: var(--green);">Très fiable</span>
+    </div>
+
+    <div class="card">
+      <div class="card-icon" style="background: var(--blue-light); color: var(--blue);">📚</div>
+      <h4>Recherche d'articles de loi</h4>
+      <p>Identifier rapidement les articles du Code du travail, du Code civil ou du Code de procédure civile applicables à une situation donnée.</p>
+      <span class="card-tag" style="background: var(--amber-light); color: var(--amber);">Vérification obligatoire</span>
+    </div>
+
+    <div class="card">
+      <div class="card-icon" style="background: var(--accent-light); color: var(--accent);">⚡</div>
+      <h4>Contre-argumentation</h4>
+      <p>Demander à l'IA de jouer le rôle de l'une des parties pour anticiper les arguments adverses, tester la solidité d'un raisonnement juridique, ou identifier des failles.</p>
+      <span class="card-tag" style="background: var(--green-light); color: var(--green);">Très utile en préparation</span>
+    </div>
+
+    <div class="card">
+      <div class="card-icon" style="background: var(--amber-light); color: var(--amber);">📋</div>
+      <h4>Synthèse de dossiers complexes</h4>
+      <p>Résumer un dossier volumineux avec de multiples demandes (dommages-intérêts, rappels de salaire, etc.) pour avoir une vue d'ensemble avant de délibérer.</p>
+      <span class="card-tag" style="background: var(--green-light); color: var(--green);">Gain de temps majeur</span>
+    </div>
+  </div>
+
+  <div class="callout callout-danger">
+    <div class="callout-label">🚨 Règle d'or</div>
+    <p>L'IA ne remplace ni votre jugement, ni votre connaissance du droit, ni votre vérification des sources. Tout ce que l'IA produit — jurisprudences, articles de loi, raisonnements juridiques — doit être vérifié avant d'être intégré à un délibéré. Un argument juridique fabriqué par l'IA et non vérifié suffit à faire tomber une décision en appel.</p>
+  </div>
+
+  <h3>Workflow recommandé</h3>
+  <p>Voici le processus à suivre pour chaque utilisation de l'IA dans le cadre d'un dossier CPH :</p>
+
+  <div class="workflow">
+    <div class="workflow-step">
+      <div class="workflow-dot" style="background: #dbeafe; color: #1e40af;">📥</div>
+      <div class="workflow-text">
+        <h5>Soumettre le dossier à l'IA</h5>
+        <p>Chargez les conclusions (anonymisées), précisez le contexte et votre question.</p>
+      </div>
+    </div>
+    <div class="workflow-connector">↓</div>
+    <div class="workflow-step">
+      <div class="workflow-dot" style="background: #ede9fe; color: #5b21b6;">🔍</div>
+      <div class="workflow-text">
+        <h5>Analyser la réponse de l'IA</h5>
+        <p>Lisez la structure, les arguments, les références. Repérez ce qui semble trop beau pour être vrai.</p>
+      </div>
+    </div>
+    <div class="workflow-connector">↓</div>
+    <div class="workflow-step">
+      <div class="workflow-dot" style="background: #fef3c7; color: #92400e;">⚖️</div>
+      <div class="workflow-text">
+        <h5>Vérifier chaque source sur Légifrance</h5>
+        <p>Articles de loi, numéros de pourvoi, dates d'arrêts. Si ça n'existe pas, c'est une hallucination — supprimez-le.</p>
+      </div>
+    </div>
+    <div class="workflow-connector">↓</div>
+    <div class="workflow-step">
+      <div class="workflow-dot" style="background: #fce7f3; color: #9d174d;">🔄</div>
+      <div class="workflow-text">
+        <h5>Croiser avec une deuxième IA (optionnel)</h5>
+        <p>Sur les points sensibles, posez la même question à un autre modèle. Les divergences signalent un point à approfondir.</p>
+      </div>
+    </div>
+    <div class="workflow-connector">↓</div>
+    <div class="workflow-step">
+      <div class="workflow-dot" style="background: #d1fae5; color: #065f46;">✅</div>
+      <div class="workflow-text">
+        <h5>Intégrer dans le délibéré</h5>
+        <p>Ne conservez que les éléments vérifiés. Le texte de l'IA est un brouillon — jamais un produit fini.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── SECTION 5 : PARAMÉTRER ─── -->
+<section id="parametrer" class="section">
+  <div class="section-number">Partie 5</div>
+  <h2>Paramétrer l'IA pour le CPH</h2>
+
+  <p>La puissance de l'IA ne vient pas de l'outil choisi, mais de la façon dont on le configure. Un ChatGPT ou un Claude bien paramétré peut rivaliser avec des logiciels spécialisés vendus à 500€/mois. Voici comment construire votre propre environnement de travail.</p>
+
+  <h3>La logique des projets</h3>
+  <p>Dans Claude comme dans ChatGPT, vous pouvez créer des «&nbsp;projets&nbsp;» — des espaces de travail dédiés avec leurs propres instructions et leurs propres documents de référence. L'idée : ne pas repartir de zéro à chaque conversation.</p>
+
+  <div class="steps">
+    <div class="step">
+      <h4>Créez un projet dédié «&nbsp;CPH&nbsp;»</h4>
+      <p>Dans Claude ou ChatGPT, créez un nouveau projet. C'est votre espace de travail permanent pour tout ce qui touche au Conseil de Prud'hommes.</p>
+    </div>
+    <div class="step">
+      <h4>Définissez le rôle et les instructions</h4>
+      <p>Écrivez des instructions claires : quel rôle l'IA doit jouer, comment elle doit répondre, quelles contraintes respecter. Le même prompt avec un rôle «&nbsp;avocat expert en droit du travail&nbsp;» et un rôle «&nbsp;traducteur&nbsp;» donne des résultats radicalement différents.</p>
+    </div>
+    <div class="step">
+      <h4>Chargez le contexte</h4>
+      <p>Uploadez les documents de référence : extraits pertinents du Code du travail, conventions collectives de votre section, modèles de délibérés. L'IA s'appuiera sur ces documents plutôt que sur ses connaissances générales — ce qui réduit les hallucinations.</p>
+    </div>
+    <div class="step">
+      <h4>Testez et affinez</h4>
+      <p>Posez des questions dont vous connaissez la réponse. Si le résultat est bon, élargissez. Si l'IA déraille, ajustez les instructions ou le contexte. C'est itératif — le prompt parfait n'existe pas, il se construit par l'usage.</p>
+    </div>
+  </div>
+
+  <div class="analogy">
+    <div class="analogy-title">Le prompt, c'est une consigne de travail</div>
+    <p>Un prompt bien construit contient quatre éléments : un <strong>rôle</strong> (qui est l'IA dans cette conversation), un <strong>contexte</strong> (les documents et informations de référence), des <strong>contraintes</strong> (ce qu'elle doit ou ne doit pas faire), et un <strong>objectif</strong> (ce que vous attendez précisément). Plus vous êtes explicite sur ces quatre dimensions, meilleur sera le résultat.</p>
+  </div>
+
+  <div class="prompt-anatomy">
+    <div class="prompt-part" style="background: #dbeafe; color: #1e3a5f;">
+      <div class="prompt-part-number">1</div>
+      <div style="border-left: 4px solid #2d5f8a; padding-left: 12px;">
+        <h5>Rôle</h5>
+        <p>Qui est l'IA dans cette conversation ?</p>
+        <p class="example">« Tu es un juriste expert en droit du travail français, spécialisé en procédure prud'homale. »</p>
+      </div>
+    </div>
+    <div class="prompt-part" style="background: #fef3c7; color: #78350f;">
+      <div class="prompt-part-number">2</div>
+      <div style="border-left: 4px solid #b8860b; padding-left: 12px;">
+        <h5>Contexte</h5>
+        <p>Quels documents et données de référence ?</p>
+        <p class="example">Code du travail en PDF, convention collective, conclusions des parties, pièces du dossier.</p>
+      </div>
+    </div>
+    <div class="prompt-part" style="background: #fce7f3; color: #831843;">
+      <div class="prompt-part-number">3</div>
+      <div style="border-left: 4px solid #9d174d; padding-left: 12px;">
+        <h5>Contraintes</h5>
+        <p>Ce que l'IA doit et ne doit pas faire.</p>
+        <p class="example">« Cite tes sources. Si tu n'es pas certain, dis-le. Pas d'écriture inclusive. Vouvoiement. »</p>
+      </div>
+    </div>
+    <div class="prompt-part" style="background: #d1fae5; color: #064e3b;">
+      <div class="prompt-part-number">4</div>
+      <div style="border-left: 4px solid #3a7d5c; padding-left: 12px;">
+        <h5>Objectif</h5>
+        <p>Qu'attendez-vous précisément ?</p>
+        <p class="example">« Analyse ces conclusions et identifie les 3 arguments les plus faibles juridiquement. »</p>
+      </div>
+    </div>
+  </div>
+
+  <h3>Les paramètres à connaître</h3>
+
+  <div class="card-grid">
+    <div class="card">
+      <h4>🎭 Personnalité</h4>
+      <p>Dans les réglages de chaque IA, vous pouvez modifier le ton (sérieux, concis, formel), le style (vouvoiement, pas d'écriture inclusive, etc.) et le comportement général. Ces réglages s'appliquent à toutes vos conversations.</p>
+    </div>
+    <div class="card">
+      <h4>🧠 Mémoire</h4>
+      <p>Si activée, l'IA retient certains éléments d'une conversation à l'autre : votre prénom, votre section, vos préférences. Pratique, mais vérifiez dans les paramètres ce qui est mémorisé — et désactivez si vous traitez des dossiers sensibles.</p>
+    </div>
+    <div class="card">
+      <h4>🔄 Choix du modèle</h4>
+      <p>Dans ChatGPT, Claude ou Gemini, vous pouvez choisir entre plusieurs modèles. Le modèle par défaut est le moins puissant. Activez le mode «&nbsp;Thinking&nbsp;» ou «&nbsp;Réflexion étendue&nbsp;» pour les sujets complexes : l'IA prend plus de temps mais les résultats sont sensiblement meilleurs.</p>
+    </div>
+    <div class="card">
+      <h4>📎 Documents de contexte</h4>
+      <p>Chargez vos PDF de référence dans le projet (pas dans la conversation simple). Le code du travail, la convention collective de votre section, vos modèles de délibérés. L'IA puisera dans ces documents pour chaque réponse.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ─── SECTION 6 : PROMPTS ─── -->
+<section id="prompts" class="section">
+  <div class="section-number">Partie 6</div>
+  <h2>Prompts prêts à l'emploi pour le CPH</h2>
+
+  <p>Voici des modèles de prompts directement utilisables, à copier-coller et adapter à vos dossiers. Les éléments en <span style="color: #fab387; font-family: 'JetBrains Mono', monospace; font-size: 14px;">orange</span> sont à remplacer par vos propres données.</p>
+
+  <h3>Instructions de projet (à mettre une seule fois)</h3>
+
+  <div class="prompt-block">
+    <div class="prompt-header">
+      <span class="prompt-label">Instructions projet CPH</span>
+      <button class="prompt-copy" onclick="copyPrompt(this)">Copier</button>
+    </div>
+    <div class="prompt-body">Tu es un assistant juridique spécialisé en droit du travail français, au service d'un conseiller prud'homal employeur (CPME).
+
+Règles impératives :
+- Tu t'appuies exclusivement sur les documents fournis en contexte (Code du travail, conventions collectives, jurisprudences) lorsqu'ils sont disponibles.
+- Lorsque tu cites un article de loi ou une jurisprudence, tu indiques la référence exacte (numéro d'article, juridiction, date, numéro de pourvoi).
+- Si tu n'es pas certain d'une information, tu le signales explicitement : « Je ne suis pas certain de cette référence, vérifiez-la. »
+- Tu ne génères jamais de jurisprudence inventée.
+- Tu rédiges dans un français juridique précis, formel, sans écriture inclusive.
+- Tu vouvoies ton interlocuteur.
+
+Style de rédaction : clair, structuré, professionnel. Phrases courtes. Pas de fioritures.</div>
+  </div>
+
+  <h3>Analyse de conclusions</h3>
+
+  <div class="prompt-block">
+    <div class="prompt-header">
+      <span class="prompt-label">Analyser les conclusions d'une partie</span>
+      <button class="prompt-copy" onclick="copyPrompt(this)">Copier</button>
+    </div>
+    <div class="prompt-body">Voici les conclusions du <span class="placeholder">[demandeur / défendeur]</span> dans une affaire de <span class="placeholder">[licenciement pour faute grave / harcèlement moral / rappel de salaire / etc.]</span>.
+
+Analysez ces conclusions et fournissez :
+1. Un résumé des demandes formulées avec les montants
+2. Les arguments juridiques invoqués, avec les articles de loi cités
+3. Les points forts et les faiblesses de l'argumentation
+4. Les éléments qui mériteraient d'être vérifiés dans les pièces du dossier
+5. Les jurisprudences pertinentes qui pourraient s'appliquer (en précisant celles dont vous êtes certain et celles à vérifier)
+
+[Collez les conclusions ici]</div>
+  </div>
+
+  <h3>Rédaction de délibéré</h3>
+
+  <div class="prompt-block">
+    <div class="prompt-header">
+      <span class="prompt-label">Aide à la rédaction d'un délibéré</span>
+      <button class="prompt-copy" onclick="copyPrompt(this)">Copier</button>
+    </div>
+    <div class="prompt-body">Aidez-moi à structurer et rédiger le délibéré pour l'affaire suivante :
+
+Contexte : <span class="placeholder">[Décrivez brièvement les faits : nature du litige, parties en présence, chronologie]</span>
+
+Demandes du salarié :
+<span class="placeholder">[Listez les demandes : indemnité de licenciement, dommages-intérêts, rappels de salaire, etc.]</span>
+
+Position de l'employeur :
+<span class="placeholder">[Résumez les arguments de l'employeur]</span>
+
+Décision du conseil :
+<span class="placeholder">[Indiquez le sens de la décision prise en délibéré pour chaque chef de demande]</span>
+
+Rédigez un projet de délibéré structuré avec :
+- Les faits et la procédure
+- Les demandes respectives
+- La motivation juridique pour chaque chef de demande (articles de loi, jurisprudence)
+- Le dispositif
+
+Indiquez en note toute référence juridique que vous n'êtes pas certain de pouvoir garantir.</div>
+  </div>
+
+  <h3>Recherche juridique ciblée</h3>
+
+  <div class="prompt-block">
+    <div class="prompt-header">
+      <span class="prompt-label">Trouver les textes applicables</span>
+      <button class="prompt-copy" onclick="copyPrompt(this)">Copier</button>
+    </div>
+    <div class="prompt-body">Je traite un dossier au Conseil de Prud'hommes portant sur <span class="placeholder">[décrivez la problématique : licenciement économique dans une entreprise de moins de 50 salariés, contestation de la cause réelle et sérieuse, etc.]</span>.
+
+Indiquez-moi :
+1. Les articles du Code du travail directement applicables
+2. Les éventuels articles du Code de procédure civile pertinents
+3. La convention collective applicable : <span class="placeholder">[nom de la convention ou « à déterminer »]</span>
+4. Les arrêts de référence de la Cour de cassation, chambre sociale, sur cette question (5 dernières années de préférence)
+5. Le barème Macron applicable si pertinent
+
+Pour chaque référence, précisez votre niveau de certitude.</div>
+  </div>
+
+  <h3>Contre-argumentation</h3>
+
+  <div class="prompt-block">
+    <div class="prompt-header">
+      <span class="prompt-label">Tester la solidité d'un argument</span>
+      <button class="prompt-copy" onclick="copyPrompt(this)">Copier</button>
+    </div>
+    <div class="prompt-body">Jouez le rôle d'un avocat représentant <span class="placeholder">[le salarié / l'employeur]</span> dans cette affaire. Votre adversaire avance l'argument suivant :
+
+« <span class="placeholder">[Copiez l'argument juridique à tester]</span> »
+
+Produisez la meilleure contre-argumentation possible :
+- Identifiez les failles juridiques de cet argument
+- Citez les textes et jurisprudences qui contredisent cette position
+- Proposez un argument alternatif plus solide
+
+Soyez aussi rigoureux qu'un avocat spécialisé en droit du travail.</div>
+  </div>
+
+  <h3>Vérification croisée</h3>
+
+  <div class="prompt-block">
+    <div class="prompt-header">
+      <span class="prompt-label">Vérifier une information juridique</span>
+      <button class="prompt-copy" onclick="copyPrompt(this)">Copier</button>
+    </div>
+    <div class="prompt-body">Je dois vérifier les informations suivantes avant de les intégrer dans un délibéré :
+
+<span class="placeholder">[Listez les références à vérifier : « Article L.1234-9 du Code du travail — indemnité de licenciement », « Cass. soc., 25 mars 2020, n° 18-11.433 », etc.]</span>
+
+Pour chaque référence :
+1. Confirmez si elle existe et si elle est toujours en vigueur
+2. Si elle existe, résumez son contenu en une phrase
+3. Si vous n'êtes pas certain, dites-le clairement
+4. Suggérez la source en ligne où je peux la vérifier moi-même (Légifrance, etc.)</div>
+  </div>
+</section>
+
+<!-- ─── SECTION 7 : SÉCURITÉ ─── -->
+<section id="securite" class="section">
+  <div class="section-number">Partie 7</div>
+  <h2>Sécurité et confidentialité</h2>
+
+  <p>Utiliser l'IA dans un cadre juridique implique de traiter des données sensibles. Quelques principes à respecter.</p>
+
+  <h3>Ce qu'il faut savoir sur vos données</h3>
+  <p>Quand vous envoyez du texte à ChatGPT, Claude ou Gemini, vos données transitent par les serveurs de l'entreprise concernée (OpenAI, Anthropic, Google). Par défaut, ces entreprises peuvent utiliser vos échanges pour entraîner leurs prochains modèles. Ce n'est pas le modèle actuel qui «&nbsp;apprend&nbsp;» de vous en temps réel, mais vos données alimentent le corpus d'entraînement futur.</p>
+
+  <div class="callout callout-danger">
+    <div class="callout-label">🔒 Actions immédiates</div>
+    <p><strong>Dans les paramètres de chaque IA, désactivez l'option «&nbsp;Utiliser mes données pour améliorer le modèle&nbsp;».</strong> L'emplacement varie selon les outils, mais cette option existe dans ChatGPT, Claude et Gemini. C'est la première chose à faire après avoir créé votre compte.</p>
+  </div>
+
+  <h3>Règles de prudence pour le CPH</h3>
+
+  <ul class="checklist">
+    <li>Ne saisissez jamais les noms réels des parties dans vos requêtes — anonymisez les dossiers (« M. X employeur », « Mme Y salariée »)</li>
+    <li>N'entrez jamais d'informations bancaires, de numéros de sécurité sociale ou de données personnelles identifiantes</li>
+    <li>Désactivez la fonction mémoire si vous traitez des dossiers sensibles</li>
+    <li>Privilégiez les versions payantes qui offrent de meilleures garanties contractuelles sur le traitement des données</li>
+    <li>Ne partagez pas vos identifiants d'accès — un compte par utilisateur</li>
+  </ul>
+
+  <h3>Le compromis utilité / sécurité</h3>
+  <p>Il faut être lucide : utiliser l'IA implique de transmettre des données à un tiers. Le curseur entre utilité et confidentialité est à placer en conscience. L'anonymisation des dossiers est le minimum incompressible. Au-delà, des solutions de filtrage automatique sont en développement — des outils qui anonymisent les données avant qu'elles n'atteignent les serveurs de l'IA.</p>
+</section>
+
+<!-- ─── SECTION 8 : ALLER PLUS LOIN ─── -->
+<section id="aller-plus-loin" class="section">
+  <div class="section-number">Partie 8</div>
+  <h2>Aller plus loin</h2>
+
+  <h3>Les compétences de demain</h3>
+  <p>Les outils vont continuer à évoluer. Ce qui restera, c'est la capacité à formuler des demandes précises, à structurer un contexte, à vérifier des résultats — bref, à «&nbsp;manager&nbsp;» l'IA. Les conseillers qui maîtriseront cette compétence disposeront d'un avantage décisif en termes de productivité et de qualité de travail. C'est un investissement qui se rembourse dès les premières utilisations.</p>
+
+  <h3>Checklist de démarrage</h3>
+
+  <ul class="checklist">
+    <li>Créez un compte sur Claude (<a href="https://claude.ai" target="_blank" style="color: var(--blue);">claude.ai</a>) et sur ChatGPT (<a href="https://chat.openai.com" target="_blank" style="color: var(--blue);">chat.openai.com</a>)</li>
+    <li>Désactivez l'utilisation de vos données pour l'entraînement dans les paramètres</li>
+    <li>Créez un projet dédié «&nbsp;CPH&nbsp;» avec les instructions fournies dans ce guide</li>
+    <li>Chargez les extraits du Code du travail pertinents pour votre section</li>
+    <li>Testez les prompts de ce guide sur un dossier dont vous connaissez le résultat</li>
+    <li>Comparez les résultats de deux IA différentes sur la même question</li>
+    <li>Intégrez progressivement l'outil dans votre routine de travail</li>
+  </ul>
+
+  <h3>Outils complémentaires</h3>
+
+  <div class="card-grid">
+    <div class="card">
+      <h4>NotebookLM</h4>
+      <p>Outil Google gratuit qui permet de charger des documents et de les explorer via un chatbot dédié. Peut générer des résumés, des podcasts audio et des synthèses à partir de vos sources. Utile pour digérer un corpus volumineux.</p>
+      <a href="https://notebooklm.google.com" target="_blank" style="color: var(--blue); font-size: 14px;">notebooklm.google.com</a>
+    </div>
+    <div class="card">
+      <h4>Légifrance</h4>
+      <p>Le site officiel pour vérifier toute référence juridique. Articles de loi en vigueur, jurisprudences de la Cour de cassation, textes consolidés. C'est votre filet de sécurité après chaque utilisation de l'IA.</p>
+      <a href="https://www.legifrance.gouv.fr" target="_blank" style="color: var(--blue); font-size: 14px;">legifrance.gouv.fr</a>
+    </div>
+  </div>
+
+  <div class="callout callout-info" style="margin-top: 40px;">
+    <div class="callout-label">📬 Contact</div>
+    <p>Pour toute question sur l'utilisation de l'IA dans votre pratique, ou pour organiser un accompagnement personnalisé :<br>
+    <strong>Julien Talbot — Ergonomia</strong><br>
+    <a href="mailto:julien.talbot@ergonomia.re" style="color: var(--blue);">julien.talbot@ergonomia.re</a></p>
+  </div>
+</section>
+
+</div>
+
+<!-- ═══════════════════════════════════════════ FOOTER ═══════════════════════════════════════════ -->
+<footer>
+  <p><strong>Guide IA pour les conseillers prud'homaux CPME</strong></p>
+  <p>Issu de la formation du 26 mars 2026 — La Réunion</p>
+  <p style="margin-top: 8px; font-size: 12px;">Ce guide est un support pédagogique. Il ne constitue pas un conseil juridique.</p>
+</footer>
+
+<!-- ═══════════════════════════════════════════ SCRIPTS ═══════════════════════════════════════════ -->
+<script>
+// Accordion
+document.querySelectorAll('.accordion-trigger').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const item = btn.parentElement;
+    const content = item.querySelector('.accordion-content');
+    const isOpen = item.classList.contains('open');
+
+    if (isOpen) {
+      content.style.maxHeight = null;
+      item.classList.remove('open');
+    } else {
+      content.style.maxHeight = content.scrollHeight + 'px';
+      item.classList.add('open');
+    }
+  });
+});
+
+// Copy prompt
+function copyPrompt(btn) {
+  const body = btn.closest('.prompt-block').querySelector('.prompt-body');
+  const text = body.innerText;
+  navigator.clipboard.writeText(text).then(() => {
+    const original = btn.textContent;
+    btn.textContent = 'Copié ✓';
+    btn.style.background = 'rgba(58,125,92,0.3)';
+    btn.style.color = '#a6e3a1';
+    setTimeout(() => {
+      btn.textContent = original;
+      btn.style.background = '';
+      btn.style.color = '';
+    }, 2000);
+  });
+}
+
+// Active nav link on scroll
+const sections = document.querySelectorAll('.section');
+const navLinks = document.querySelectorAll('.nav-link');
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      navLinks.forEach(link => link.classList.remove('active'));
+      const activeLink = document.querySelector(`.nav-link[href="#${entry.target.id}"]`);
+      if (activeLink) activeLink.classList.add('active');
+    }
+  });
+}, { rootMargin: '-100px 0px -60% 0px' });
+
+sections.forEach(s => observer.observe(s));
+</script>
+
+</body>
+</html>
